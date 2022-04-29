@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   fetchDogs()
+  editDogTable()
   
 })
 
 const dogUrl = "http://localhost:3000/dogs/"
-
 
 function fetchDogs() {
   fetch(dogUrl)
@@ -14,8 +14,6 @@ function fetchDogs() {
 
         renderDogs(data) 
         fillDogForm(data)
-        // edit button func
-        editDogTable()
 
         }
       )
@@ -32,7 +30,7 @@ function renderDogs(dogInfo){
     // console.log(element.breed)
     // console.log(element.sex)
     const tbody = document.getElementById("table-body")
-    let dogsTr = document.createElement('tr')
+    const dogsTr = document.createElement('tr')
     tbody.appendChild(dogsTr)
 
     let tdName = document.createElement('td')
@@ -55,7 +53,6 @@ function renderDogs(dogInfo){
     dogsTr.appendChild(tdButton)
 
   // reduce all code
-  
   // use map after creating func
   })
 
@@ -98,8 +95,7 @@ function editDogTable(){
   const dogForm = document.getElementById("dog-form")
   let dogInputs = document.querySelectorAll("input")
 
-  
-  dogForm.addEventListener("submit", function (event){
+  document.getElementById("dog-form").addEventListener("submit", function (event){
     event.preventDefault()
     console.log(idPlaceholder)
 
@@ -107,7 +103,6 @@ function editDogTable(){
     // console.log(dogInputs[0].value)
     // console.log(dogInputs[1].value)
     // console.log(dogInputs[2].value)
-    
 
     fetch(`${dogUrl}/${idPlaceholder}`, {
       method: "PATCH",
@@ -123,27 +118,25 @@ function editDogTable(){
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data)
-        console.log(data.name)
-        console.log(data.breed)
-        console.log(data.sex)
-        // renderDogs(data)
-        // location.reload()
-        // let input3 = document.querySelectorAll("input")
-        // input3[3].addEventListener("click", function (event){
-        // event.preventDefault()
 
-        // console.log("clicked")
-        
-        // })
-        
+        // console.log(data.name)
+        // console.log(data.breed)
+        // console.log(data.sex)
 
       })
       .catch((error) => {
         console.error('Error:', error);
       })
+      
+      fetch(dogUrl)
+      .then(response => response.json())
+      .then(data => {
 
+        document.getElementById("table-body").innerHTML = ""
+        renderDogs(data)
+
+      })
+        
   })
-
-  
 
 }

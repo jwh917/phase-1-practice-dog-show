@@ -92,7 +92,6 @@ function fillDogForm(dogInfo){
 }
 
 function editDogTable(){
-  const dogForm = document.getElementById("dog-form")
   let dogInputs = document.querySelectorAll("input")
 
   document.getElementById("dog-form").addEventListener("submit", function (event){
